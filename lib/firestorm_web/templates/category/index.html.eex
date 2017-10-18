@@ -1,0 +1,13 @@
+<h2>Listing Categories</h2>
+
+<span><%= link "New Category", to: category_path(@conn, :new) %></span>
+
+<ol class="category-list">
+  <%= for category <- @categories do %>
+    <li>
+      <h2 class="title">
+        <%= category_link(@conn, category) %>
+      </h2>
+    </li>
+  <% end %>
+</ol>
