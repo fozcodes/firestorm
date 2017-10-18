@@ -4,8 +4,8 @@
 
 <ol class="category-list">
   <%= for category <- @categories do %>
-    <li>
-      <h2 class="title">
+    <li class="category-list__item">
+      <h2 class="category-list__item__title">
         <%= category_link(@conn, category) %>
       </h2>
     </li>
