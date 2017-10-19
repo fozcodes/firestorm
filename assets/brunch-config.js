@@ -51,7 +51,8 @@ exports.config = {
     sass: {
       options: {
         includePaths: [
-          "node_modules/normalize-scss/sass"
+          "node_modules/normalize-scss/sass",
+          "node_modules/typeplate-starter-kit/dist/scss"
         ]
       }
     }
