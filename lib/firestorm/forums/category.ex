@@ -3,7 +3,6 @@ defmodule Firestorm.Forums.Category do
   import Ecto.Changeset
   alias Firestorm.Forums.Category
 
-
   schema "categories" do
     field :title, :string
 

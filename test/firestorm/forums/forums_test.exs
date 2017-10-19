@@ -126,4 +126,72 @@ defmodule Firestorm.ForumsTest do
       assert %Ecto.Changeset{} = Forums.change_category(category)
     end
   end
+
+  describe "threads" do
+    alias Firestorm.Forums.Thread
+
+    @valid_attrs %{title: "some title"}
+    @update_attrs %{title: "some updated title"}
+    @invalid_attrs %{title: nil}
+
+    def thread_fixture(category, attrs \\ %{}) do
+      {:ok, thread} =
+        Enum.into(%{category_id: category.id}, attrs)
+        |> Enum.into(@valid_attrs)
+        |> Forums.create_thread()
+
+      thread
+    end
+
+    test "list_threads/1 returns all threads" do
+      category = category_fixture()
+      thread = thread_fixture(category)
+      assert Forums.list_threads(category) == [thread]
+    end
+
+    test "get_thread!/1 returns the thread with given id" do
+      category = category_fixture()
+      thread = thread_fixture(category)
+      assert Forums.get_thread!(thread.id) == thread
+    end
+
+    test "create_thread/1 with valid data creates a thread" do
+      category = category_fixture()
+      attrs = Enum.into(%{category_id: category.id}, @valid_attrs)
+      assert {:ok, %Thread{} = thread} = Forums.create_thread(attrs)
+      assert thread.title == "some title"
+    end
+
+    test "create_thread/1 with invalid data returns error changeset" do
+      assert {:error, %Ecto.Changeset{}} = Forums.create_thread(@invalid_attrs)
+    end
+
+    test "update_thread/2 with valid data updates the thread" do
+      category = category_fixture()
+      thread = thread_fixture(category)
+      assert {:ok, thread} = Forums.update_thread(thread, @update_attrs)
+      assert %Thread{} = thread
+      assert thread.title == "some updated title"
+    end
+
+    test "update_thread/2 with invalid data returns error changeset" do
+      category = category_fixture()
+      thread = thread_fixture(category)
+      assert {:error, %Ecto.Changeset{}} = Forums.update_thread(thread, @invalid_attrs)
+      assert thread == Forums.get_thread!(thread.id)
+    end
+
+    test "delete_thread/1 deletes the thread" do
+      category = category_fixture()
+      thread = thread_fixture(category)
+      assert {:ok, %Thread{}} = Forums.delete_thread(thread)
+      assert_raise Ecto.NoResultsError, fn -> Forums.get_thread!(thread.id) end
+    end
+
+    test "change_thread/1 returns a thread changeset" do
+      category = category_fixture()
+      thread = thread_fixture(category)
+      assert %Ecto.Changeset{} = Forums.change_thread(thread)
+    end
+  end
 end
