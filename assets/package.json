@@ -16,6 +16,8 @@
     "clean-css-brunch": "2.10.0",
     "normalize-css": "^2.3.1",
     "sass-brunch": "^2.10.4",
-    "uglify-js-brunch": "2.10.0"
+    "uglify-js-brunch": "2.10.0",
+    "webpack": "^3.8.1",
+    "webpack-dev-server": "^2.9.3"
   }
 }

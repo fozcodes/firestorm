@@ -11,7 +11,13 @@
 //
 // If you no longer want to use a dependency, remember
 // to also remove its path from "config.paths.watched".
-import "phoenix_html"
+
+// We'll require our CSS file, which doesn't yet exist
+require("../css/app.scss");
+// // And we'll load the phoenix_html javascript from the elixir package
+import "../../deps/phoenix_html/priv/static/phoenix_html";
+//
+alert("foo");
 
 // Import local files
 //
