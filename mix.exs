@@ -42,6 +42,8 @@ defmodule Firestorm.Mixfile do
       {:phoenix_live_reload, "~> 1.0", only: :dev},
       {:phoenix_pubsub, "~> 1.0"},
       {:postgrex, ">= 0.0.0"},
+      {:ueberauth, "~> 0.4"},
+      {:ueberauth_github, "~> 0.4"},
     ]
   end
 

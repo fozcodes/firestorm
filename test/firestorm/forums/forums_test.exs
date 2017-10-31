@@ -65,6 +65,30 @@ defmodule Firestorm.ForumsTest do
       user = user_fixture()
       assert %Ecto.Changeset{} = Forums.change_user(user)
     end
+
+    test "login_or_create_user_from_github/1 returns a user after creating one" do
+      auth_info = %{
+        email: "ian@dingus.com",
+        name: "Ian Fosbery",
+        nickname: "fozcodes",
+      }
+      result = Forums.login_or_create_user_from_github(auth_info)
+      assert {:ok, user} = result
+      em = user.email
+      assert em == "ian@dingus.com"
+    end
+
+    test "login_or_register_from_github/1 returns a user if it already exists" do
+      auth_info = %{
+        email: "ian@dingus.com",
+        name: "Ian Fosbery",
+        nickname: "fozcodes",
+      }
+      Forums.login_or_create_user_from_github(auth_info)
+      result = Forums.login_or_create_user_from_github(auth_info)
+      assert {:ok, user} = result
+      assert user.email == "ian@dingus.com"
+    end
   end
 
   describe "categories" do

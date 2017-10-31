@@ -22,6 +22,18 @@ defmodule Firestorm.Forums do
   end
 
   @doc """
+  Tries to find a user from GitHub info and creates one if not found
+  """
+  def login_or_create_user_from_github(%{nickname: nickname, name: name, email: email}) do
+    case get_user_by_username(nickname) do
+      nil ->
+        create_user(%{email: email, name: name, username: nickname})
+      user ->
+        {:ok, user}
+    end
+  end
+
+  @doc """
   Gets a single user.
 
   Raises `Ecto.NoResultsError` if the User does not exist.
@@ -36,6 +48,8 @@ defmodule Firestorm.Forums do
 
   """
   def get_user!(id), do: Repo.get!(User, id)
+
+  def get_user_by_username(username), do: Repo.get_by(User, %{username: username})
 
   @doc """
   Creates a user.
